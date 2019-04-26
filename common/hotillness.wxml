@@ -1,0 +1,13 @@
+<template name='hotillness'>
+<view class="illnessListBox">
+      <view class="illnessListTitle clearfix">
+        <text class="illnessListName db fl">热门疾病</text>
+        <text class="illnessListRight db fr" bindtap='goTodiseaseList'>更多></text>
+      </view>
+      <view class="illnessList">
+        <block>
+          <text wx:for="{{illnessList}}" wx:key='key'  data-illnessId='{{item.id}}' data-name="{{item.name}}" bindtap="goToDisease" class="illnessName db fl">{{item.name}}</text>
+        </block>
+      </view>
+    </view>
+</template>

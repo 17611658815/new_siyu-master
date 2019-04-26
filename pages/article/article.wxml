@@ -1,0 +1,69 @@
+<import src="../../wxParse/wxParse.wxml" />
+<import src='../../common/articleList.wxml' />
+<scroll-view scroll-y="true" bindscrolltolower="pullUpLoad">
+  <view class='page-body'>
+    <!-- 疾病信息 -->
+    <view class='color'>
+      <view class='videoTitle'>
+        <view>{{articleList.article.title}}</view>
+        <view>
+          <text>{{articleList.article.created}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 专家信息 -->
+    <view class='doctorInfo'>
+      <view class='InfoBox' wx:if="{{articleList.doctor.id}}" data-id="{{articleList.doctor.id}}" bindtap='godoctorHomeanswer'>
+        <view>
+          <image src='{{articleList.doctor.avatar}}'></image>
+        </view>
+        <view>
+          <view>
+            <text>{{articleList.doctor.name}}</text>
+            <text>{{articleList.doctor.position}}</text>
+          </view>
+          <view>
+            <text>{{articleList.doctor.hospital}}</text>
+            <text>{{articleList.doctor.department}}</text> </view>
+        </view>
+      </view>
+      <!-- 文章内容 -->
+      <view style='height:50rpx' wx:if="{{articleList.doctor == false}}"></view>
+      <view class='title'>
+        <view>
+          <!-- 百度插件解析富文本 -->
+          <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        </view>
+      </view>
+    </view>
+    <!-- 相关推荐 -->
+    <view class='recommended' wx:if="{{articleList.relevant.length>0}}">
+      <view class='recommended-title'>相关文章</view>
+      <view class='msgList'>
+        <template is='articleList' data='{{homeList:articleList.relevant,goToArticle:"goToArticle",titleShow:false}}' />
+      </view>
+      <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+      <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
+    </view>
+  </view>
+</scroll-view>
+
+
+<view class="tabbar">
+  <view class="barBtn clearfix" bindtap='goidnex'>
+    <button class="btnName db">
+      <view class='iconBox'>
+        <image class="btnIcon db" src="../../images/sy.png"></image>
+      </view>
+      首页
+    </button>
+  </view>
+  <view class="barBtn clearfix">
+    <button class="btnName db" bindtap="onShareAppMessage" open-type='share'>
+      <view class='iconBox'>
+        <image class="btnIcon2 db" src="../../images/fx.png"></image>
+      </view>
+      分享
+    </button>
+  </view>
+</view>

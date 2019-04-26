@@ -1,0 +1,59 @@
+<import src='../../common/videotemplate.wxml' />
+<import src='../../common/hotillness.wxml' />
+<scroll-view class="content" style="width:100%;height: 100%;" scroll-y="true" bindscroll="scrollTopFun">
+  <view class="page-body">
+    <view class="top">
+      <!-- 搜索框 -->
+      <view class="searchBox">
+        <navigator url='/pages/search/search?pageChange=true'>
+          <view class="search clearfix">
+            <image class="searchIcon fr" src="../../images/search.png"></image>
+            <input class="searchInput fl" placeholder-class="phcolor" value='搜疾病 / 症状 / 专家'></input>
+            <text class="lineShu db fl"></text>
+          </view>
+        </navigator>
+      </view>
+      <!-- 轮播样式 -->
+      <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <swiper-item>
+          <view hover-class="navigator-hover">
+            <image class="slide-image" mode="widthFix" src="../../images/banner.jpg" />
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <!-- 顶部导航 -->
+    <view class='navBox'>
+      <view bindtap='goVideohoem'>
+        <view class='imgBox'>
+          <image class='sp' src='../../images/sp.png'></image>
+        </view>
+        <view class='titleBox'>科普视频</view>
+      </view>
+      <view bindtap='goAskhoem'>
+        <view class='imgBox'>
+          <image class='wd' src='../../images/wd.png'></image>
+        </view>
+        <view class='titleBox'>名医问答</view>
+      </view>
+      <view bindtap='goArticlehome'>
+        <view class='imgBox'>
+          <image class='wz' src='../../images/wz.png'></image>
+        </view>
+        <view class='titleBox'>专家文章</view>
+      </view>
+      <view bindtap='goAudiohome'>
+        <view class='imgBox'>
+          <image class='yp' src='../../images/yp.png'></image>
+        </view>
+        <view class='titleBox'>专家音频</view>
+      </view>
+    </view>
+    <!-- 热门疾病 -->
+    <template is='hotillness' data='{{illnessList:illnessList,goTodiseaseList:"goTodiseaseList",goToDisease:"goToDisease"}}' />
+    <!-- 视频样式 -->
+    <template is='videoList' data='{{homeList:homeList,goToDetails:"goToDetails",titleShow:true,title:"科普视频",imgUrl:"../../images/KPTJ.png"}}' />
+  </view>
+  <view class='loadingStyle' style="display:{{isHide}};" wx:if='{{!off_on}}'>加载中...</view>
+  <view class='BottomTost' wx:else>我是有底线的~</view>
+</scroll-view>

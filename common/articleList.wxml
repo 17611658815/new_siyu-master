@@ -1,0 +1,25 @@
+<template name='articleList'>
+<view class='msgList'>
+  <view class='nav_title' wx:if="{{titleShow}}">
+    <image class='tuijian' src='../../images/new.png'></image>
+    <text>最新文章</text>
+  </view>
+
+  <view class='msgList_box' wx:for="{{homeList}}" wx:key='key' bindtap='goToArticle' data-id="{{item.id}}">
+    <view class='msgList_title'>
+      <text class='problem'>{{item.title}}</text>
+    </view>
+    <view class='msgList_answer'>
+      <view class='article'>
+        {{item.description}}
+      </view>
+    </view>
+    <view class='msgList_doctor' wx:if="{{item.doctor!=false}}">
+      <image src='{{item.doctor.avatar}}'></image>
+      <text class='doctorName'>{{item.doctor.name}}</text>
+      <text class='zhiwei'>{{item.doctor.position}}</text>
+      <text class='hospita'>{{item.doctor.hospital}}</text>
+    </view>
+  </view>
+</view>
+</template>

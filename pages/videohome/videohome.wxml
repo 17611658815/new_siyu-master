@@ -1,0 +1,13 @@
+<import src='../../common/videotemplate.wxml' />
+<import src='../../common/navTypetitle.wxml' />
+<scroll-view class="content" style="width:100%;height: 100%;" scroll-y="true" bindscroll="scrollTopFun">
+  <view class="page-body">
+    <view class="top">
+      <image src='../../images/sp-banner.jpg'></image>
+    </view>
+    <template is='typetitle' data='{{illnessList:illnessList,goToDisease:"goToDisease",goTodiseaseList:"goTodiseaseList",type:"视频"}}' />
+    <template is='videoList' data='{{homeList:homeList,goToDetails:"goToDetails",titleShow:true,title:"最新视频",imgUrl:"../../images/new.png"}}' />
+  </view>
+  <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+  <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
+</scroll-view>

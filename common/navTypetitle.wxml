@@ -1,0 +1,14 @@
+<template name="typetitle">
+ <view class="illnessListBox">
+      <view class="illnessListTitle clearfix">
+        <image src='../../images/jbicon.png'></image>
+        <text class="illnessListName db fl">按疾病找{{type}}</text>
+        <text class="illnessListRight db fr" bindtap='goTodiseaseList'>更多></text>
+      </view>
+      <view class="illnessList">
+        <block>
+          <text wx:for="{{illnessList}}" data-illnessId='{{item.id}}' data-name="{{item.name}}" bindtap="goToDisease" class="illnessName db fl" wx:key='key'>{{item.name}}</text>
+        </block>
+      </view>
+    </view>
+</template>

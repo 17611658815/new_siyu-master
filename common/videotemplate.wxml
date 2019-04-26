@@ -1,0 +1,27 @@
+<template name="videoList">
+<view class='msgList'>
+  <view class='nav_title' wx:if="{{titleShow}}">
+    <image class='tuijian' src='{{imgUrl}}'></image>
+    <text>{{title}}</text>
+  </view>
+  <view class='msgList_box' wx:for="{{homeList}}" wx:key='key' data-id="{{item.id}}" bindtap='goToDetails'>
+    <view class='msgList_msg'>
+      <view>
+        <image lazy-load='true' src='{{item.thumb}}'></image>
+        <text class='times' wx:if="{{item.duration != ''}}">{{item.duration}}</text>
+        <image class='Listplay' src='../../images/Listplay.png'></image>
+      </view>
+    </view>
+    <view class='msgList_title'>
+      <text>{{item.title}}</text>
+    </view>
+    <view style='height:30rpx' wx:if="{{item.doctor == false}}"></view>
+    <view class='msgList_doctor' wx:if="{{item.doctor != false}}">
+      <image src='{{item.doctor.avatar}}'></image>
+      <text class='doctorName'>{{item.doctor.name}}</text>
+      <text class='zhiwei'>{{item.doctor.position}}</text>
+      <text class='hospita'>{{item.doctor.hospital}}</text>
+    </view>
+  </view>
+</view>
+</template>

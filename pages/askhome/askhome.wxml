@@ -1,0 +1,18 @@
+<import src='../../common/navTypetitle.wxml' />
+<import src='../../common/askList.wxml' />
+<scroll-view class="content" style="width:100%;height: 100%;" scroll-y="true" bindscroll="scrollTopFun">
+
+  <view class="page-body">
+    <view class="top">
+      <image src='../../images/wd-banner.jpg'></image>
+    </view>
+
+    <template is='typetitle' data='{{illnessList:illnessList,goToDisease:"goToDisease",goTodiseaseList:"goTodiseaseList",type:"问答"}}' />
+    <!-- 问答列表 -->
+    <template is='askList' data='{{homeList:homeList,goAsk:"goAsk",titleShow:true}}' />
+
+    <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+    <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
+
+  </view>
+</scroll-view>

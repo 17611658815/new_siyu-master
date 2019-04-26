@@ -1,0 +1,13 @@
+<import src='../../common/navTypetitle.wxml' />
+<import src='../../common/audioList.wxml' />
+<scroll-view class="content" style="width:100%;height: 100%;" scroll-y="true" bindscroll="scrollTopFun">
+  <view class="page-body">
+    <view class="top">
+      <image src='../../images/yp-banner.jpg'></image>
+    </view>
+    <template is='typetitle' data='{{illnessList:illnessList,goToDisease:"goToDisease",goTodiseaseList:"goTodiseaseList",type:"音频"}}' />
+    <template is='audioList' data='{{homeList:homeList,goAudio:"goAudio",titleShow:true}}' />
+    <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+    <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
+  </view>
+</scroll-view>
