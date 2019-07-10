@@ -1,7 +1,7 @@
 <template name="videoList">
 <view class='msgList'>
   <view class='nav_title' wx:if="{{titleShow}}">
-    <image class='tuijian' src='{{imgUrl}}'></image>
+    <image class='tuijian' lazy-load="true" src='{{imgUrl}}'></image>
     <text>{{title}}</text>
   </view>
   <view class='msgList_box' wx:for="{{homeList}}" wx:key='key' data-id="{{item.id}}" bindtap='goToDetails'>

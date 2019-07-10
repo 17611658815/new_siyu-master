@@ -220,7 +220,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '/pages/doctorHomePage/doctorHomePage?doctorId=' + doctorId + "&one=3",
+        url: '/pages/doctorHomePage/doctorHomePage?doctorId=' + doctorId + "&one=2",
       })
     }
 
@@ -235,7 +235,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '/pages/doctorHomePage/doctorHomePage?doctorId=' + doctorId + "&one=4",
+        url: '/pages/doctorHomePage/doctorHomePage?doctorId=' + doctorId + "&one=3",
       })
     }
   },

@@ -3,7 +3,7 @@
     <!-- 搜索框 -->
     <view class="searchBox" bindtap='goToSearch'>
       <view class="search clearfix">
-        <input class="searchInput fl" value='{{values}}' placeholder-class="phcolor" placeholder="搜索专家"></input>
+        <view class="searchInput fl" value='{{values}}' placeholder-class="phcolor">搜疾病 / 症状 / 专家</view>
         <text class="lineShu db fl"></text>
         <image class="searchIcon fr" src="../../images/search.png"></image>
       </view>
@@ -56,10 +56,10 @@
             <text>视频</text>
             <text>{{item.shipin_nums}}</text>
           </label>
-          <label data-id="{{item.id}}" data-num="{{item.question_nums}}" bindtap='godoctorHomeanswer'>
+          <!-- <label data-id="{{item.id}}" data-num="{{item.question_nums}}" bindtap='godoctorHomeanswer'>
             <text>问答</text>
             <text>{{item.question_nums}}</text>
-          </label>
+          </label> -->
           <label data-id="{{item.id}}" data-num="{{item.article_nums}}" bindtap='godoctorHomearticle'>
             <text>文章</text>
             <text>{{item.article_nums}}</text>

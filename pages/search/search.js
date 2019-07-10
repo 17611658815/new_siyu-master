@@ -102,7 +102,7 @@ Page({
   onReachBottom: function() {
     let that = this
     that.data.page++
-    if (that.data.currentTab > 0) {  //疾病列表
+      if (that.data.currentTab > 0 && !that.data.off_on) {  //疾病列表
       that.loadingShow()
       that.loadmore()
     } 
@@ -178,7 +178,7 @@ Page({
       } else {
         that.setData({
           isHide: 'none',
-          ostShow: true,
+            tostShow: true,
           off_on: true
         });
       }

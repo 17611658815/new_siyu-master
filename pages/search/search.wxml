@@ -7,7 +7,7 @@
   <!-- 搜索框 -->
   <view class="searchBox">
     <view class="search clearfix">
-      <input class="searchInput fl" bindinput='searchMsgs' placeholder-class="phcolor" placeholder="搜疾病 / 症状 / 专家"></input>
+      <input class="searchInput fl" bindinput='searchMsgs' bindconfirm="searchIllness" placeholder-class="phcolor" placeholder="搜疾病 / 症状 / 专家"></input>
       <text class="lineShu db fl"></text>
       <image class="searchIcon fr" bindtap='searchIllness' src="../../images/search.png"></image>
     </view>

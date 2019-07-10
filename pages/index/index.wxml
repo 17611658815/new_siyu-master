@@ -8,7 +8,7 @@
         <navigator url='/pages/search/search?pageChange=true'>
           <view class="search clearfix">
             <image class="searchIcon fr" src="../../images/search.png"></image>
-            <input class="searchInput fl" placeholder-class="phcolor" value='搜疾病 / 症状 / 专家'></input>
+            <view class="searchInput fl" placeholder-class="phcolor">搜疾病 / 症状 / 专家</view>
             <text class="lineShu db fl"></text>
           </view>
         </navigator>
@@ -17,7 +17,7 @@
       <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <swiper-item>
           <view hover-class="navigator-hover">
-            <image class="slide-image" mode="widthFix" src="../../images/banner.jpg" />
+            <image class="slide-image"  mode="widthFix" src="../../images/banner.jpg" />
           </view>
         </swiper-item>
       </swiper>

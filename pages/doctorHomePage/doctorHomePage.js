@@ -3,7 +3,8 @@ const Promise = require('../../common/promise.js')
 const app = getApp()
 Page({
   data: {
-    list: ['主页', '视频','问答', '文章', '音频'],
+    // list: ['主页', '视频','问答', '文章', '音频'],
+      list: ['主页', '视频', '文章', '音频'],
     doctorinfos: {}, //医生个人信息
     doctorinfo: [], //专家视频-音频-文章...列表
     introduction: '',
@@ -28,7 +29,8 @@ Page({
     goIndex: false,
     a: true,
     docName: '',
-    contype: ['home','shipin','ask', 'article','yinpin'],
+    // contype: ['home','shipin','ask', 'article','yinpin'],
+    contype: ['home','shipin', 'article','yinpin'],
     lengthNum:1
   },
   onLoad: function(options) {
@@ -57,16 +59,16 @@ Page({
     });
     
     that.setData({
-      currentTab: options.one ? options.one : 0,
+    currentTab: options.one ? options.one : 0,
       doctorId: options.doctorId,
       userid: userid,
-      url: 'https://api.mfk.com/html/mfk_video/index.html?id=' + options.doctorId + '&uid=' + userid + '&one=' + options.one
+    //   url: 'https://api.mfk.com/html/mfk_video/index.html?id=' + options.doctorId + '&uid=' + userid + '&one=' + options.one
     })
     //概述列表
     var url = 'https://api.mfk.com/app/api/mfk_shipin_app2.php?type=doctor_' + that.data.contype[that.data.currentTab]
-    that.getDoctorinfo(url)
+      that.getDoctorinfo(url)
     //判断选项
-    if (options.one == 1) {
+    /* if (options.one == 1) {
       that.godoctorHomevideo()
     } 
     else if (options.one == 2) {
@@ -76,7 +78,12 @@ Page({
       that.godoctorHomearticle()
     } else if (options.one == 4) {
       that.godoctorHomeaudio()
-    }
+    } */
+      if (options.one > 0) {
+          that.loadmore()
+      }
+      
+     
     that.gaunzhun()
   },
   bindplay() {
@@ -152,6 +159,7 @@ Page({
     Promise.get(url, {
       id: that.data.doctorId,
       page: that.data.page},1).then(res=>{
+          console.log(res)
       that.setData({
         doctorinfos: res.data,
         introduction: res.data.doctor.introduction.slice(0, 40),
@@ -163,11 +171,13 @@ Page({
   },
   //动态请求
   tabList(url) {
-    let that = this
-    let page = that.data.page
+    let that = this;
+    that.setData({
+        page:1
+    })
     Promise.get(url, {
       id: that.data.doctorId,
-      page: page},1).then(res=>{
+      page:that.data.page},1).then(res=>{
         console.log(res)
         that.setData({
           doctorinfo: res.data[that.data.contype[that.data.currentTab]],
@@ -332,7 +342,8 @@ Page({
   godoctorHomearticle() {
     let that = this;
     that.setData({
-      currentTab: 3
+    //   currentTab: 3
+      currentTab: 2
     })
     var url = "https://api.mfk.com/app/api/mfk_shipin_app2.php?type=doctor_article" //文章
     that.tabList(url);
@@ -341,7 +352,8 @@ Page({
   godoctorHomeaudio() {
     let that = this;
     that.setData({
-      currentTab: 4
+    //   currentTab: 4
+      currentTab: 3
     })
     var url = "https://api.mfk.com/app/api/mfk_shipin_app2.php?type=doctor_yinpin" //音频
     that.tabList(url);

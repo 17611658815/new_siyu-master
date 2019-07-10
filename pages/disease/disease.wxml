@@ -1,106 +1,110 @@
-<import src='../../common/videotemplate.wxml' /><!--  视频 -->
-<import src='../../common/askList.wxml' />      <!--  问答 -->
-<import src='../../common/articleList.wxml' />  <!--  文章 -->
-<import src='../../common/audioList.wxml' />    <!--  音频 -->
-<view class='header'>
-  <view>
-    <image src='../../images/deer.png'></image>
-    <text>{{illnessName}}</text>
-  </view>
-  <view class='list'>
-    <view>
-      <view wx:for="{{list}}" class="swiper-tab-list {{currentTab==index ? 'on' : ''}}" data-current="{{index}}" wx:key='key' bindtap="swichNav">
-        <view>{{item}}</view>
-        <view  class='{{currentTab==index? "borderhover":"border"}}'></view>
-      </view>
+<import src='../../common/videotemplate.wxml' />
+<!--  视频 -->
+<import src='../../common/askList.wxml' />
+<!--  问答 -->
+<import src='../../common/articleList.wxml' />
+<!--  文章 -->
+<import src='../../common/audioList.wxml' />
+<!--  音频 -->
+<view class='page-body'>
+    <view class='header'>
+        <view>
+            <image src='../../images/deer.png'></image>
+            <text>{{illnessName}}</text>
+        </view>
+        <view class='list'>
+            <view>
+                <view wx:for="{{list}}" class="swiper-tab-list {{currentTab==index ? 'on' : ''}}" data-current="{{index}}" wx:key='key' bindtap="swichNav">
+                    <view>{{item}}</view>
+                    <view class='{{currentTab==index? "borderhover":"border"}}'></view>
+                </view>
+            </view>
+        </view>
     </view>
-  </view>
-</view>
-<!-- 导航条 -->
-<view style='height:240rpx' wx:if="{{currentTab==0}}"></view>
-<scroll-view class='page-body' scroll-y="true"  wx:if="{{currentTab==0}}">
-  <!-- 折叠展开 -->
-  <view class="textMsg" wx:if='{{illnessTitle}}'>
-    <view class='folding'>
-      <text wx:if="{{show}}">
+    <!-- 导航条 -->
+    <view style='height:240rpx'></view>
+    <view class='page-body' wx:if="{{currentTab==0}}">
+        <view class="textMsg" wx:if='{{illnessTitle}}'>
+            <view class='folding'>
+                <text wx:if="{{show}}">
        {{illnessTitle}}...</text>
-      <text wx:if="{{!show}}">
+                <text wx:if="{{!show}}">
       {{illnessTitles}}</text>
-      <text bindtap='unfold' wx:if="{{show}}">展开</text>
-      <text bindtap='packUp' wx:if="{{!show}}">收起</text>
+                <text bindtap='unfold' wx:if="{{show}}">展开</text>
+                <text bindtap='packUp' wx:if="{{!show}}">收起</text>
+            </view>
+        </view>
+        <!-- 就医指南 -->
+        <view class='guide' wx:if="{{guideShow}}">
+            <view class='content' style='overflow:{{hidden}};'>
+                <view class='title' wx:if="{{attrList.length>0}}">
+                    <image src='../../images/guide.png'></image>
+                    <text>就医指南</text>
+                </view>
+                <view wx:for='{{attrList}}' wx:key='key' data-index='{{idnex}}' class='guide_Msg'>
+                    <text>{{item.name}}</text>
+                    <text>:</text>
+                    <text>{{item.val}}</text>
+                    <text class='unfold' wx:if="{{index==4}}" bindtap="guideUnfold">展开</text>
+                </view>
+            </view>
+        </view>
+        <view class='guide' wx:if="{{!guideShow}}">
+            <view class='content'>
+                <view class='title' wx:if="{{attrList}}">
+                    <image src='../../images/guide.png'></image>
+                    <text>就医指南</text>
+                </view>
+                <view wx:for="{{overviewList.illness.attr}}" wx:key='key' class='guide_Msg'>
+                    <text>{{item.name}}</text>
+                    <text>:</text>
+                    <text>{{item.val}}</text>
+                    <text class='unfold' wx:if="{{item.name=='是否属于医保'}}" bindtap="guidePackUp">收起</text>
+                </view>
+            </view>
+        </view>
+        <view class='hotList'>
+            <!-- 视频样式 -->
+            <view class='videoBox' wx:if="{{overviewList.shipin.length>0}}">
+                <view class='titles'>
+                    <image src='../../images/video.png'></image>
+                    <text>视频</text>
+                    <text data-current="{{1}}" bindtap="swichNav">更多></text>
+                </view>
+                <template is='videoList' data='{{homeList:overviewList.shipin,goToDetails:"goToDetails",titleShow:false}}' />
+            </view>
+            <!-- 问答 -->
+            <view class='msgList' wx:if="{{overviewList.ask.length>0}}">
+                <view class='titles'>
+                    <image src='../../images/answer.png'></image>
+                    <text>问答</text>
+                    <text data-current="{{2}}" bindtap="swichNav">更多></text>
+                </view>
+                <template is='askList' data='{{homeList:overviewList.ask,goAsk:"goAsk",titleShow:false}}' />
+            </view>
+            <!-- 文章 -->
+            <view class='msgList' wx:if="{{overviewList.article.length>0}}">
+                <view class='titles'>
+                    <image style='height:35rpx;' src='../../images/article.png'></image>
+                    <text>文章</text>
+                    <text data-current="{{3}}" bindtap="swichNav">更多></text>
+                </view>
+                <template is='articleList' data='{{homeList:overviewList.article,goToArticle:"goToArticle",titleShow:false}}' />
+            </view>
+            <!-- 音频 -->
+            <view class='msgList' wx:if="{{overviewList.yinpin.length>0}}">
+                <view class='titles'>
+                    <image style='height:35rpx;' src='../../images/audios.png'></image>
+                    <text>音频</text>
+                    <text data-current="{{4}}" bindtap="swichNav">更多></text>
+                </view>
+                <template is='audioList' data='{{homeList:overviewList.yinpin,goAudio:"goAudio",titleShow:false}}' />
+            </view>
+            <!-- 音频 -->
+        </view>
     </view>
-  </view>
-  <!-- 就医指南 -->
-  <view class='guide' wx:if="{{guideShow}}">
-    <view class='content' style='overflow:{{hidden}};'>
-      <view class='title' wx:if="{{attrList.length>0}}">
-        <image src='../../images/guide.png'></image>
-        <text>就医指南</text>
-      </view>
-      <view wx:for='{{attrList}}' wx:key='key' data-index='{{idnex}}' class='guide_Msg'>
-        <text>{{item.name}}</text>
-        <text>:</text>
-        <text>{{item.val}}</text>
-        <text class='unfold' wx:if="{{index==4}}" bindtap="guideUnfold">展开</text>
-      </view>
-    </view>
-  </view>
-  <view class='guide' wx:if="{{!guideShow}}">
-    <view class='content'>
-      <view class='title' wx:if="{{attrList}}">
-        <image src='../../images/guide.png'></image>
-        <text>就医指南</text>
-      </view>
-      <view wx:for="{{overviewList.illness.attr}}" wx:key='key' class='guide_Msg'>
-        <text>{{item.name}}</text>
-        <text>:</text>
-        <text>{{item.val}}</text>
-        <text class='unfold' wx:if="{{item.name=='是否属于医保'}}" bindtap="guidePackUp">收起</text>
-      </view>
-    </view>
-  </view>
-  <view class='hotList'>
-    <!-- 视频样式 -->
-    <view class='videoBox' wx:if="{{overviewList.shipin.length>0}}">
-      <view class='titles'>
-        <image src='../../images/video.png'></image>
-        <text>视频</text>
-        <text bindtap='godoctorHomevideo'>更多></text>
-      </view>
-       <template is='videoList' data='{{homeList:overviewList.shipin,goToDetails:"goToDetails",titleShow:false}}' />
-    </view>
-    <!-- 问答 -->
-    <view class='msgList' wx:if="{{overviewList.ask.length>0}}">
-      <view class='titles'>
-        <image src='../../images/answer.png'></image>
-        <text>问答</text>
-        <text bindtap='godoctorHomeanswer'>更多></text>
-      </view>
-       <template is='askList' data='{{homeList:overviewList.ask,goAsk:"goAsk",titleShow:false}}' />
-    </view>
-    <!-- 文章 -->
-    <view class='msgList' wx:if="{{overviewList.article.length>0}}">
-      <view class='titles'>
-        <image style='height:35rpx;' src='../../images/article.png'></image>
-        <text>文章</text>
-        <text bindtap='godoctorHomearticle'>更多></text>
-      </view>
-       <template is='articleList' data='{{homeList:overviewList.article,goToArticle:"goToArticle",titleShow:false}}' />
-    </view>
-    <!-- 音频 -->
-    <view class='msgList' wx:if="{{overviewList.yinpin.length>0}}">
-      <view class='titles'>
-        <image style='height:35rpx;' src='../../images/audios.png'></image>
-        <text>音频</text>
-        <text bindtap='godoctorHomeaudio'>更多></text>
-      </view>
-       <template is='audioList' data='{{homeList:overviewList.yinpin,goAudio:"goAudio",titleShow:false}}' />
-    </view>
-    <!-- 音频 -->
-  </view>
-</scroll-view>
 
-<!--
+    <!--
     currentTab=0 主页 
     currentTab=1 视频  
     currentTab=2 问答
@@ -108,90 +112,104 @@
     currentTab=4 音频 
 -->
 
-<!-- 视频 -->
-<scroll-view class='page-body' scroll-y="true"  wx:if="{{currentTab==1}}">
-  <view style='height:240rpx;'></view>
-  <view class='box' wx:if="{{lengthNum>0}}">
-    <view class='videoBox'>
-      <template is='videoList' data='{{homeList:overviewList,goToDetails:"goToDetails",titleShow:false}}' />
+    <!-- 视频 -->
+    <view style='margin-top:20rpx' wx:if="{{currentTab==1}}">
+        <view class='videoBox' wx:if="{{lengthNum>0}}">
+            <template is='videoList' data='{{homeList:overviewList,goToDetails:"goToDetails",titleShow:false}}' />
+            <!-- <view class='msgList'>
+                <view class='nav_title' wx:if="{{titleShow}}">
+                    <image class='tuijian' lazy-load="true" src='{{imgUrl}}'></image>
+                    <text>{{title}}</text>
+                </view>
+                <view class='msgList_box' wx:for="{{overviewList}}" wx:key='key' data-id="{{item.id}}" bindtap='goToDetails'>
+                    <view class='msgList_msg'>
+                        <view>
+                            <image lazy-load='true' src='{{item.thumb}}'></image>
+                            <text class='times' wx:if="{{item.duration != ''}}">{{item.duration}}</text>
+                            <image class='Listplay' src='../../images/Listplay.png'></image>
+                        </view>
+                    </view>
+                    <view class='msgList_title'>
+                        <text>{{item.title}}</text>
+                    </view>
+                    <view style='height:30rpx' wx:if="{{item.doctor == false}}"></view>
+                    <view class='msgList_doctor' wx:if="{{item.doctor != false}}">
+                        <image src='{{item.doctor.avatar}}'></image>
+                        <text class='doctorName'>{{item.doctor.name}}</text>
+                        <text class='zhiwei'>{{item.doctor.position}}</text>
+                        <text class='hospita'>{{item.doctor.hospital}}</text>
+                    </view>
+                </view>
+            </view> -->
+        </view>
+        <view class='nomsg' wx:else>
+            <view>
+                <image src="../../images/nomsage.jpg"></image>
+                <view>抱歉，暂时还没有相关数据！ </view>
+            </view>
+        </view>
+        <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+        <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
     </view>
-  </view>
-  <view class='nomsg' wx:else>
-    <view>
-      <image src="../../images/nomsage.jpg"></image>
-      <view>抱歉，暂时还没有相关数据！ </view>
+
+    <!-- 问答 -->
+    <view style='margin-top:20rpx' wx:if="{{currentTab==2}}">
+        <template wx:if="{{lengthNum>0}}" is='askList' data='{{homeList:overviewList,goAsk:"goAsk",titleShow:false}}' />
+        <view class='nomsg' wx:else>
+            <view>
+                <image src="../../images/nomsage.jpg"></image>
+                <view>抱歉，暂时还没有相关数据！ </view>
+            </view>
+        </view>
+        <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+        <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
     </view>
-  </view>
-  <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
-  <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
-</scroll-view>
 
-<!-- 问答 -->
-<scroll-view class='page-body' scroll-y="true"  wx:if="{{currentTab==2}}">
-  <view style='height:240rpx;'></view>
-  <view class='box' wx:if="{{lengthNum>0}}">
-     <template is='askList' data='{{homeList:overviewList,goAsk:"goAsk",titleShow:false}}' />
-  </view>
-  <view class='nomsg' wx:else>
-    <view>
-      <image src="../../images/nomsage.jpg"></image>
-      <view>抱歉，暂时还没有相关数据！ </view>
+    <view style='margin-top:20rpx' wx:if="{{currentTab==3}}">
+        <template wx:if="{{lengthNum>0}}" is='articleList' data='{{homeList:overviewList,goToArticle:"goToArticle",titleShow:false}}' />
+        <view class='nomsg' wx:else>
+            <view>
+                <image src="../../images/nomsage.jpg"></image>
+                <view>抱歉，暂时还没有相关数据！ </view>
+            </view>
+        </view>
+        <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+        <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
     </view>
-  </view>
-  <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
-  <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
-</scroll-view>
-
-<!-- 文章 -->
-<scroll-view class='page-body' scroll-y="true"  wx:if="{{currentTab==3}}">
-  <view style='height:240rpx;'></view>
-  <view class='box' wx:if="{{lengthNum>0}}">
-    <template is='articleList' data='{{homeList:overviewList,goToArticle:"goToArticle",titleShow:false}}' />
-  </view>
-  <view class='nomsg' wx:else>
-    <view>
-      <image src="../../images/nomsage.jpg"></image>
-      <view>抱歉，暂时还没有相关数据！ </view>
+    <!-- 音频 -->
+    <view style='margin-top:20rpx' wx:if="{{currentTab==4}}">
+        <template wx:if="{{lengthNum>0}}" is='audioList' data='{{homeList:overviewList,goAudio:"goAudio",titleShow:false}}' />
+        <view class='nomsg' wx:else>
+            <view>
+                <image src="../../images/nomsage.jpg"></image>
+                <view>抱歉，暂时还没有相关数据！ </view>
+            </view>
+        </view>
+         <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
+        <view class='BottomTost' wx:if='{{tostShow}}'>我是有底线的~</view>
     </view>
-  </view>
-  <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
-  <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
-</scroll-view>
 
-<!-- 音频 -->
-<scroll-view class='page-body' scroll-y="true"  wx:if="{{currentTab==4}}">
-  <view style='height:240rpx;'></view>
-  <view class='box' wx:if="{{lengthNum>0}}">
-    <template is='audioList' data='{{homeList:overviewList,goAudio:"goAudio",titleShow:false}}' />
-  </view>
-  <view class='nomsg' wx:else>
-    <view>
-      <image src="../../images/nomsage.jpg"></image>
-      <view>抱歉，暂时还没有相关数据！ </view>
+
+
+
+    <view style='height:96rpx'></view>
+    <!-- 底部tabber -->
+    <view class="tabbar">
+        <view class="barBtn clearfix" bindtap='goidnex'>
+            <button class="btnName db">
+                <view class='iconBox'>
+                    <image class="btnIcon db" src="../../images/sy.png"></image>
+                </view>
+                首页
+            </button>
+        </view>
+        <view class="barBtn clearfix">
+            <button class="btnName db" bindtap="onShareAppMessage" open-type='share'>
+                <view class='iconBox'>
+                    <image class="btnIcon2 db" src="../../images/fx.png"></image>
+                </view>
+                分享
+            </button>
+        </view>
     </view>
-  </view>
-  <view class='loadingStyle' style="display:{{isHide}};">加载中...</view>
-  <view class='BottomTost' wx:if="{{tostShow}}">我是有底线的~</view>
-</scroll-view>
-
-
-
-<!-- 底部tabber -->
-<view class="tabbar">
-  <view class="barBtn clearfix" bindtap='goidnex'>
-    <button class="btnName db">
-      <view class='iconBox'>
-        <image class="btnIcon db" src="../../images/sy.png"></image>
-      </view>
-      首页
-    </button>
-  </view>
-  <view class="barBtn clearfix">
-    <button class="btnName db" bindtap="onShareAppMessage" open-type='share'>
-      <view class='iconBox'>
-        <image class="btnIcon2 db" src="../../images/fx.png"></image>
-      </view>
-      分享
-    </button>
-  </view>
 </view>
